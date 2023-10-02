@@ -1,0 +1,54 @@
+name: PostgreSQL and Node.js CI
+
+on:
+  push:
+    branches:
+      - assignment_two
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_DB: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: root
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    # - name: Start PostgreSQL
+    #   run: docker pull postgres
+    #        docker start postgres
+
+    # - name: Wait for PostgreSQL to initialize
+    #   run: |
+    #     sleep 20
+    #     docker exec postgres pg_isready -q || exit 1
+
+    # - name: Print Docker Container Logs
+    #   run: docker logs postgres
+
+    - name: Install dependencies
+      run: npm install
+
+    # - name: Run tests
+    #   run: npm test
+
+    # - name: Tear down PostgreSQL
+    #   run: |
+    #     docker stop postgres
+    #     docker rm postgres
