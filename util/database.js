@@ -1,10 +1,12 @@
+require('dotenv').config();
 const Sequelize = require('sequelize');
 const dbvar = require('./dbvar');
+//console.log(process.env.DB_USER);
 
 //DB SPECs
-const sequelize = new Sequelize(dbvar.DB, dbvar.USER, dbvar.PASSWORD, {
-  dialect: dbvar.DIALECT,
-  host: dbvar.HOST
+const sequelize = new Sequelize(process.env.DB_POSTGRESQL, process.env.DB_USER, process.env.DB_PASSWORD, {
+  dialect: 'postgres',
+  host: 'localhost'
 });
 
 module.exports = sequelize;
