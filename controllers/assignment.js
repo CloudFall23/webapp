@@ -129,6 +129,11 @@ exports.getAssignment = async (req, res, next) => {
 
   const assignmentId = req.params.id;
 
+  const uuidPattern = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;
+  if (!uuidPattern.test(assignmentId)) {
+      return res.status(400).json({ message: 'Bad Request: Invalid assignment ID format.' });
+  }
+
   try {
     const assignment = await Assignment.findByPk(assignmentId);
     if (!assignment) {
@@ -161,6 +166,11 @@ exports.getAssignment = async (req, res, next) => {
 
       
       const assignmentId = req.params.id;
+
+      const uuidPattern = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;
+      if (!uuidPattern.test(assignmentId)) {
+          return res.status(400).json({ message: 'Bad Request: Invalid assignment ID format.' });
+      }
 
       try {
         const assignment = await Assignment.findByPk(assignmentId);
@@ -212,6 +222,12 @@ exports.getAssignment = async (req, res, next) => {
       }
 
       const assignmentId = req.params.id;
+
+      const uuidPattern = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$/;
+      if (!uuidPattern.test(assignmentId)) {
+          return res.status(400).json({ message: 'Bad Request: Invalid assignment ID format.' });
+      }
+
       const { name, points, num_of_attemps, deadline } = req.body;
 
     //Validate presence of fields
