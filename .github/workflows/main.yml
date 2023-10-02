@@ -30,25 +30,8 @@ jobs:
       with:
         node-version: '14'
 
-    # - name: Start PostgreSQL
-    #   run: docker pull postgres
-    #        docker start postgres
-
-    # - name: Wait for PostgreSQL to initialize
-    #   run: |
-    #     sleep 20
-    #     docker exec postgres pg_isready -q || exit 1
-
-    # - name: Print Docker Container Logs
-    #   run: docker logs postgres
-
     - name: Install dependencies
       run: npm install
 
-    # - name: Run tests
-    #   run: npm test
-
-    # - name: Tear down PostgreSQL
-    #   run: |
-    #     docker stop postgres
-    #     docker rm postgres
+    - name: Run tests
+      run: npm test
