@@ -34,7 +34,7 @@ exports.getAssignments = async (req, res, next) => {
       })
       .catch(err => {
         if (!err.statusCode) {
-          err.statusCode = 500;
+          return res.status(400).end();
         }
         next(err);
       });
