@@ -1,0 +1,29 @@
+{
+  "name": "cloud_assignmentone",
+  "version": "1.0.0",
+  "description": "Health check of DB",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node app.js"
+  },
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "csv-parser": "^3.0.0",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "mysql2": "^3.6.1",
+    "pg": "^8.11.3",
+    "sequelize": "^6.33.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.1",
+    "supertest": "^6.3.3"
+  }
+}
