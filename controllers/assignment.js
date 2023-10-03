@@ -28,8 +28,8 @@ exports.getAssignments = async (req, res, next) => {
       if(!user_id){
           return res.status(401).json({ message: 'User not found.' });
       }
-      
-    Assignment.findAll({ where: { user_id: user_id } })
+      //{ where: { user_id: user_id } }
+    Assignment.findAll()
       .then(assignments => {
 
         // if (assignments.user_id !== user_id) {
@@ -155,14 +155,14 @@ exports.getAssignment = async (req, res, next) => {
         return res.status(404).json({ message: 'Assignment not found' });
     }
 
-    if (assignment.user_id !== user_id) {
-      return res
-        .status(403)
-        .json({
-          message:
-            "Forbidden: You do not have permission to delete this assignment.",
-        });
-    }
+    // if (assignment.user_id !== user_id) {
+    //   return res
+    //     .status(403)
+    //     .json({
+    //       message:
+    //         "Forbidden: You do not have permission to delete this assignment.",
+    //     });
+    // }
 
     res.status(200).json({ message: "Assignment fetched.", assignment: assignment });
     } catch (err) {
