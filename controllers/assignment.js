@@ -277,7 +277,7 @@ exports.getAssignment = async (req, res, next) => {
     return res.status(400).json({ message: 'Bad Request: Invalid deadline format.' });
   }
 
-  if( num_of_attemps && (num_of_attemps < 1 || num_of_attemps > 100)) {
+  if( num_of_attemps && num_of_attemps < 0) {
     return res.status(400).json({ message: 'Bad Request: Invalid values.' });
   }
 
