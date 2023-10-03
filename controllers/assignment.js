@@ -8,6 +8,11 @@ const { getUserIdByEmail } = require('../controllers/user');
 //GET ALL Assignments
 exports.getAssignments = async (req, res, next) => {
 
+      // Validate no JSON body is passed
+      if (Object.keys(req.body).length !== 0) {
+      return res.status(400).json({ message: 'Bad Request: JSON body should not be provided for GET requests.' });
+      }
+
       //Authorisation validation
       if (!req.get('Authorization')) {
         return res.status(401).json({ message: 'Authentication required.' });
@@ -18,13 +23,24 @@ exports.getAssignments = async (req, res, next) => {
       const email = credentials[0];
   
       const user_id = await getUserIdByEmail(email);
-  
+
+      //User ID not found
       if(!user_id){
-          return res.status(403).json({ message: 'Forbidden: User not found.' });
+          return res.status(401).json({ message: 'User not found.' });
       }
       
-    Assignment.findAll()
+    Assignment.findAll({ where: { user_id: user_id } })
       .then(assignments => {
+
+        // if (assignments.user_id !== user_id) {
+        //   return res
+        //     .status(403)
+        //     .json({
+        //       message:
+        //         "Forbidden: You do not have permission to delete this assignment.",
+        //     });
+        // }
+
         res
           .status(200)
           .json({
@@ -34,7 +50,7 @@ exports.getAssignments = async (req, res, next) => {
       })
       .catch(err => {
         if (!err.statusCode) {
-          return res.status(400).end();
+          res.status(400).json({ message: "Bad Request" });
         }
         next(err);
       });
@@ -46,7 +62,7 @@ exports.getAssignments = async (req, res, next) => {
 
     //Authorisation validation
     if (!req.get('Authorization')) {
-      return res.status(401).json({ message: 'Authentication required.' });
+      return res.status(401).json({ message: 'Authentication required' });
     }
 
     //Validate presence of fields
@@ -63,8 +79,8 @@ exports.getAssignments = async (req, res, next) => {
       return res.status(400).json({ message: 'Bad Request: Points should be between 1 and 10 or should be a number.' });
     }
 
-    if(typeof num_of_attemps !== 'number') {
-      return res.status(400).json({ message: 'Bad Request: Invalid number of attempts type.' });
+    if(typeof num_of_attemps !== 'number' || num_of_attemps < 1 || num_of_attemps > 10) {
+      return res.status(400).json({ message: 'Bad Request: Invalid number of attempts type or num_of_attemps to be between 1 and 100.' });
     }
 
     if(!Date.parse(deadline)) { // Check if deadline can be parsed into a date
@@ -80,15 +96,8 @@ exports.getAssignments = async (req, res, next) => {
 
     const user_id = await getUserIdByEmail(email);
 
-    // let user_id;
-    // try {
-    //     user_id = await getUserIdByEmail(email);
-    // } catch(err) {
-    //     return res.status(403).json({ message: 'Forbidden: User not found.' });
-    // }
-
     if(!user_id){
-        return res.status(403).json({ message: 'Forbidden: User not found.' });
+        return res.status(401).json({ message: 'User not found.' });
     }
 
     Assignment.create({
@@ -103,7 +112,8 @@ exports.getAssignments = async (req, res, next) => {
     })
     .catch(err => {
         if (!err.statusCode) {
-            err.statusCode = 500;
+            //err.statusCode = 500;
+            res.status(400).json({ message: "Bad Request" });
         }
         next(err);
     });
@@ -111,6 +121,11 @@ exports.getAssignments = async (req, res, next) => {
 
 //GET specific assignment
 exports.getAssignment = async (req, res, next) => {
+
+    // Validate no JSON body is passed
+    if (Object.keys(req.body).length !== 0) {
+      return res.status(400).json({ message: 'Bad Request: JSON body should not be provided for GET requests.' });
+      }
   
     //Authorisation validation
     if (!req.get("Authorization")) {
@@ -124,7 +139,7 @@ exports.getAssignment = async (req, res, next) => {
     const user_id = await getUserIdByEmail(email);
 
     if(!user_id){
-        return res.status(403).json({ message: 'Forbidden: User not found.' });
+        return res.status(401).json({ message: 'User not found.' });
     }
 
   const assignmentId = req.params.id;
@@ -139,10 +154,20 @@ exports.getAssignment = async (req, res, next) => {
     if (!assignment) {
         return res.status(404).json({ message: 'Assignment not found' });
     }
+
+    if (assignment.user_id !== user_id) {
+      return res
+        .status(403)
+        .json({
+          message:
+            "Forbidden: You do not have permission to delete this assignment.",
+        });
+    }
+
     res.status(200).json({ message: "Assignment fetched.", assignment: assignment });
     } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: 'Internal server error' });
+      //console.error(err);
+      res.status(400).json({ message: 'Bad Request' });
   }
 };
 
@@ -151,7 +176,7 @@ exports.getAssignment = async (req, res, next) => {
       
           //Authorisation validation
     if (!req.get("Authorization")) {
-      return res.status(401).json({ message: "Authentication required." });
+      return res.status(401).json({ message: "Authentication required" });
     }
 
     //Forbidden
@@ -191,7 +216,7 @@ exports.getAssignment = async (req, res, next) => {
         res.status(204).json({ message: "No content" });
       } catch (err) {
         if (!err.statusCode) {
-          err.statusCode = 500;
+          res.status(400).json({ message: 'Bad Request' });
         }
         next(err);
       }
@@ -280,7 +305,7 @@ exports.getAssignment = async (req, res, next) => {
       res.status(204).end();
     } catch (err) {
       if (!err.statusCode) {
-          err.statusCode = 500;
+          res.status(400).json({ message: 'Bad Request' });
         }
       next(err);
     }

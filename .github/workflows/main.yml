@@ -1,9 +1,9 @@
 name: Integration Test
 
 on:
-  push:
+  pull_request:
     branches:
-      - assignment_two
+      - main
 
 jobs:
   build:
