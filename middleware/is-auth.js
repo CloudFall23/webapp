@@ -15,7 +15,7 @@ exports.checkAssignmentRouter = async (req, res, next) => {
             // const error = new Error('Unauthorized');
             // error.statusCode = 401;
             // throw error;
-            return res.status(403).json({ message: 'Forbidden' });  
+            return res.status(401).json({ message: 'Incorrect Authorisation' });  
         }
         next(); 
     } catch (error) {
