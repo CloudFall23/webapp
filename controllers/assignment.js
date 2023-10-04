@@ -13,6 +13,10 @@ exports.getAssignments = async (req, res, next) => {
       return res.status(400).json({ message: 'Bad Request: JSON body should not be provided for GET requests.' });
       }
 
+      if (req.query && Object.keys(req.query).length > 0) {
+        return res.status(400).json({ message: "Bad Request!" });
+      }
+
       //Authorisation validation
       if (!req.get('Authorization')) {
         return res.status(401).json({ message: 'Authentication required.' });
@@ -26,31 +30,29 @@ exports.getAssignments = async (req, res, next) => {
 
       //User ID not found
       if(!user_id){
-          return res.status(401).json({ message: 'User not found.' });
+          return res.status(404).json({ message: 'User not found.' });
       }
       //{ where: { user_id: user_id } }
     Assignment.findAll()
       .then(assignments => {
 
-        // if (assignments.user_id !== user_id) {
-        //   return res
-        //     .status(403)
-        //     .json({
-        //       message:
-        //         "Forbidden: You do not have permission to delete this assignment.",
-        //     });
-        // }
+        const sanitisedAssgn = assignments.map(ac => ({
+          id: ac.dataValues.id,
+          name: ac.dataValues.name,
+          points: ac.dataValues.points,
+          num_of_attemps: ac.dataValues.num_of_attemps,
+          deadline: ac.dataValues.deadline,
+          assignment_created: ac.dataValues.assignment_created,
+          assignment_updated: ac.dataValues.assignment_updated
+        }));
 
-        res
-          .status(200)
-          .json({
-            message: 'Fetched assignments successfully.',
-            assignments: assignments
+        res.status(200).json({
+            assignments: sanitisedAssgn
           });
       })
       .catch(err => {
         if (!err.statusCode) {
-          res.status(400).json({ message: "Bad Request" });
+          return res.status(400).json({ message: "Bad Request" });
         }
         next(err);
       });
@@ -63,6 +65,10 @@ exports.getAssignments = async (req, res, next) => {
     //Authorisation validation
     if (!req.get('Authorization')) {
       return res.status(401).json({ message: 'Authentication required' });
+    }
+
+    if (req.query && Object.keys(req.query).length > 0) {
+      return res.status(400).json({ message: "Bad Request!" });
     }
 
     //Validate presence of fields
@@ -108,12 +114,12 @@ exports.getAssignments = async (req, res, next) => {
         deadline
     })
     .then(result => {
-        res.status(201).json({ message: 'Assignment created successfully!', assignment: result });
+        res.status(201).json({ assignment: result });
     })
     .catch(err => {
         if (!err.statusCode) {
             //err.statusCode = 500;
-            res.status(400).json({ message: "Bad Request" });
+            return res.status(400).json({ message: "Bad Request" });
         }
         next(err);
     });
@@ -151,6 +157,7 @@ exports.getAssignment = async (req, res, next) => {
 
   try {
     const assignment = await Assignment.findByPk(assignmentId);
+
     if (!assignment) {
         return res.status(404).json({ message: 'Assignment not found' });
     }
@@ -164,10 +171,15 @@ exports.getAssignment = async (req, res, next) => {
     //     });
     // }
 
-    res.status(200).json({ message: "Assignment fetched.", assignment: assignment });
+    //REMOVE GET API USER ID
+    if (assignment["dataValues"].user_id) {
+      delete assignment["dataValues"].user_id;
+    }
+
+    res.status(200).json({ assignment: assignment });
     } catch (err) {
       //console.error(err);
-      res.status(400).json({ message: 'Bad Request' });
+      return res.status(400).json({ message: 'Bad Request' });
   }
 };
 
@@ -178,6 +190,11 @@ exports.getAssignment = async (req, res, next) => {
     if (!req.get("Authorization")) {
       return res.status(401).json({ message: "Authentication required" });
     }
+
+    // Validate no JSON body is passed
+    if (Object.keys(req.body).length !== 0) {
+      return res.status(400).json({ message: 'Bad Request: JSON body should not be provided for GET requests.' });
+      }
 
     //Forbidden
     const credentials = Buffer.from(req.get('Authorization').split(' ')[1], 'base64').toString().split(':');
@@ -216,7 +233,7 @@ exports.getAssignment = async (req, res, next) => {
         res.status(204).json({ message: "No content" });
       } catch (err) {
         if (!err.statusCode) {
-          res.status(400).json({ message: 'Bad Request' });
+          return res.status(400).json({ message: 'Bad Request' });
         }
         next(err);
       }
@@ -305,7 +322,7 @@ exports.getAssignment = async (req, res, next) => {
       res.status(204).end();
     } catch (err) {
       if (!err.statusCode) {
-          res.status(400).json({ message: 'Bad Request' });
+          return res.status(400).json({ message: 'Bad Request' });
         }
       next(err);
     }
