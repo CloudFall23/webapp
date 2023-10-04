@@ -20,7 +20,7 @@ Delete Assignment: DELETE API - http://178.128.150.95:8080/v1/assignments/40030e
 > Sync with forked main
 
 ## Debian
-> After shell script
+> After shell script running
 > sudo -u postgres psql
 > \password postgres
 > Enter password
@@ -28,3 +28,12 @@ Delete Assignment: DELETE API - http://178.128.150.95:8080/v1/assignments/40030e
 > npm install
 > Node server.js
 
+## Droplet settings
+> Create Debian droplet
+> In /root(siddh) cmd - ssh -i .\.ssh\digitalocean root@192.241.145.56(your ip)
+> Open a new terminal
+> csv copy - scp -i C:\Users\siddh\.ssh\digitalocean C:\Users\siddh\Downloads\users.csv root@178.128.150.95:/opt
+> folder copy: scp -r -i C:\Users\siddh\.ssh\digitalocean .\your_folder_in_siddh\ root@178.128.150.95:/demo
+> cd to setup.sh level
+> chmod +x setup.sh
+> ./setup.sh
