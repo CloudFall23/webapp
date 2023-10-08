@@ -37,3 +37,8 @@ Delete Assignment: DELETE API - http://178.128.150.95:8080/v1/assignments/40030e
 > cd to setup.sh level
 > chmod +x setup.sh
 > ./setup.sh
+
+## Show Debian Postgres Database
+psql -h hostname -U postgres -d postgres
+select * from users
+\q
