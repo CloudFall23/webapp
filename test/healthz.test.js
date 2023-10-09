@@ -12,7 +12,7 @@ describe('Health Check Route', () => {
   it('should return 200 OK and a JSON response with status "Healthy"', (done) => {
     request(app)
       .get('/healthz')
-      .expect(204)
+      .expect(200)
       .end((err, res) => {
         if (err) return done(err);
         expect(res.body.status);
