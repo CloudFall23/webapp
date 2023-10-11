@@ -89,7 +89,9 @@ exports.getAssignments = async (req, res, next) => {
       return res.status(400).json({ message: 'Bad Request: Invalid number of attempts type or num_of_attemps to be between 1 and 100.' });
     }
 
-    if(!Date.parse(deadline)) { // Check if deadline can be parsed into a date
+    const datePattern = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{3} [+-]\d{4}$/;
+
+    if(!datePattern.test(deadline)) { // Check if deadline can be parsed into a date
       return res.status(400).json({ message: 'Bad Request: Invalid deadline format.' });
     }
 
@@ -272,10 +274,15 @@ exports.getAssignment = async (req, res, next) => {
 
       const { name, points, num_of_attemps, deadline } = req.body;
 
+  //   //Validate presence of fields
+  // if(!name && !points && num_of_attemps === undefined && !deadline) {
+  //   return res.status(400).json({ message: 'Bad Request: No fields.' });
+  // }
+
     //Validate presence of fields
-  if(!name && !points && num_of_attemps === undefined && !deadline) {
-    return res.status(400).json({ message: 'Bad Request: No fields.' });
-  }
+    if(!name || !points || num_of_attemps === undefined || !deadline) {
+      return res.status(400).json({ message: 'Bad Request: Missing required fields.' });
+    }
   
   //Validate data types
   if(name && typeof name !== 'string') {
