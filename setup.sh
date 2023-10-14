@@ -30,8 +30,8 @@ nodejs -v
 
 echo "Installing unzip"
 sudo yum install unzip -y
-unzip /home/ec2-user/webApp.zip -d /home/ec2-user/webApp
-cd /home/ec2-user/webApp
+unzip /home/admin/webApp.zip -d /home/admin/webApp
+cd /home/admin/webApp
 echo "unzipped successfully"
 
 npm install 
