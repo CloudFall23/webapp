@@ -29,7 +29,7 @@ nodejs -v
 #sudo -u postgres createuser --interactive --pwprompt your_user
 
 echo "Installing unzip"
-sudo yum install unzip -y
+sudo apt-get install unzip
 unzip /home/admin/webApp.zip -d /home/admin/webApp
 cd /home/admin/webApp
 echo "unzipped successfully"
