@@ -7,6 +7,12 @@ packer {
   }
 }
 
+variable "aws_region" {
+  description = "The AWS region where the AMI will be created."
+  type        = string
+  default     = "us-east-1" # Default region
+}
+
 locals {
   timestamp = regex_replace(timestamp(), "[- TZ:]", "")
 }
@@ -28,7 +34,7 @@ source "amazon-ebs" "webApp" {
 
 
   instance_type = "t2.micro"
-  region        = "us-east-1"
+  region        = var.aws_region # Use the variable for region
   ssh_username  = "admin"
 }
 
