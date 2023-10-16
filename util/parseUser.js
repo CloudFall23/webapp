@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 
 const loadUsersFromCSV = () => {
-    const filePath = '/opt/users.csv';
+    const filePath = 'opt/users.csv';
     //'c:/Users/siddh/Downloads/users.csv'
     const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
