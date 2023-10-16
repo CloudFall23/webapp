@@ -12,7 +12,7 @@ locals {
 }
 
 source "amazon-ebs" "webApp" {
-  ami_users = [388344348771, 075160867462]
+  ami_users = ["388344348771", "075160867462"]
   ami_name  = "webApp-${local.timestamp}"
   profile   = "develop"
 
