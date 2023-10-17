@@ -16,6 +16,7 @@ sudo -u postgres psql
 sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD '$1'";
 echo "postgres setup successful"
 
+
 # Install Node.js and npm
 sudo apt install -y nodejs
 sudo apt install -y npm

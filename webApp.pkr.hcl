@@ -14,9 +14,8 @@ variable "aws_region" {
 }
 
 variable "PGPASSWORD" {
-  description = "Password for PostgreSQL"
-  type        = string
-  default     = ""
+  type    = string
+  default = "root" # Default region
 }
 
 locals {
@@ -55,7 +54,9 @@ build {
   }
 
   provisioner "shell" {
-    inline = ["./setup.sh ${var.PGPASSWORD}"]
+    scripts = [
+      "./setup.sh ${var.PGPASSWORD}"
+    ]
   }
 
 }
