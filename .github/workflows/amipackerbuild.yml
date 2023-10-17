@@ -28,11 +28,6 @@ jobs:
           ls -a .
           echo "ls -a ${{ github.workspace }}"
           ls -a ${{ github.workspace }}
-      
-      - name: Set AWS Region Variable
-        run: |
-            echo "::set-env name=PACKER_VAR_aws_region::us-east-1"  # Change the region as needed
-        shell: bash
 
       - name: Step 3 - zip all the webApp files
         run: |
@@ -54,4 +49,5 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: packer build -var "aws_region=${{ env.PACKER_VAR_aws_region }}" webApp.pkr.hcl
+          AWS_REGION: ${{ env.AWS_REGION }}
+        run: packer build -var "aws_region=${{ env.AWS_REGION }}" webApp.pkr.hcl
