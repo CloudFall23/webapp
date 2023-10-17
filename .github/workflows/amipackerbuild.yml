@@ -51,4 +51,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ vars.AWS_REGION }}
           PGPASSWORD: ${{ secrets.PGPASSWORD }}
-        run: packer build -var "aws_region=${AWS_REGION}" -var "PGPASSWORD=${PGPASSWORD}" webApp.pkr.hcl
+        run: packer build -var "aws_region=${AWS_REGION}" webApp.pkr.hcl
