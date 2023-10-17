@@ -16,6 +16,7 @@ variable "aws_region" {
 variable "PGPASSWORD" {
   description = "Password for PostgreSQL"
   type        = string
+  default     = ""
 }
 
 locals {
