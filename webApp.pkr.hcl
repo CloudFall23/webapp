@@ -55,10 +55,7 @@ build {
   }
 
   provisioner "shell" {
-    script = "./setup.sh",
-    environment_vars = [
-      "PGPASSWORD"=var.PGPASSWORD
-    ]
+    inline = ["./setup.sh ${var.PGPASSWORD}"]
   }
 
 }
