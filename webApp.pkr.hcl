@@ -54,8 +54,8 @@ build {
   }
 
   provisioner "shell" {
-    scripts = [
-      "./setup.sh ${var.PGPASSWORD}"
+    inline = [
+      "./setup.sh ${var.PGPASSWORD}",
     ]
   }
 
