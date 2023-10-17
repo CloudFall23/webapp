@@ -13,7 +13,7 @@ sudo apt install -y postgresql postgresql-contrib
 sudo systemctl start postgresql
 sudo systemctl enable postgresql
 sudo -u postgres psql
-sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD '$1'";
+sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'root'";
 echo "postgres setup successful"
 
 
