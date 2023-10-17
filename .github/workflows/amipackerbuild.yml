@@ -49,5 +49,5 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ env.AWS_REGION }}
-        run: packer build -var "aws_region=${{ env.AWS_REGION }}" webApp.pkr.hcl
+          AWS_REGION: ${{ vars.AWS_REGION }}
+        run: packer build -var "aws_region=${AWS_REGION}" webApp.pkr.hcl
