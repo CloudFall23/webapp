@@ -13,11 +13,6 @@ variable "aws_region" {
   default     = "us-east-1" # Default region
 }
 
-variable "PGPASSWORD" {
-  type    = string
-  default = "root" # Default region
-}
-
 locals {
   timestamp = regex_replace(timestamp(), "[- TZ:]", "")
 }
