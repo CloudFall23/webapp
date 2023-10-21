@@ -29,14 +29,14 @@ source "amazon-ebs" "webApp" {
       virtualization-type = "hvm"
     }
     most_recent = true
-    owners=["amazon"]
+    owners      = ["amazon"]
   }
 
 
   instance_type = "t2.micro"
   region        = var.aws_region # Use the variable for region
   ssh_username  = "admin"
-}
+//}
 
 build {
   sources = [
