@@ -36,7 +36,7 @@ source "amazon-ebs" "webApp" {
   instance_type = "t2.micro"
   region        = var.aws_region # Use the variable for region
   ssh_username  = "admin"
-//}
+}
 
 build {
   sources = [
