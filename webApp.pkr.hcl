@@ -29,7 +29,7 @@ source "amazon-ebs" "webApp" {
       virtualization-type = "hvm"
     }
     most_recent = true
-    owners      = ["amazon"]
+    owners=["amazon"]
   }
 
 
