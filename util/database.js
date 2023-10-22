@@ -6,7 +6,13 @@ const dbvar = require('./dbvar');
 //DB SPECs
 const sequelize = new Sequelize(process.env.DB_POSTGRESQL, process.env.DB_USER, process.env.DB_PASSWORD, {
   dialect: 'postgres',
-  host: 'localhost'
+  host: process.env.DB_HOST,
+  dialectOptions: {
+    ssl: {
+        require: true,
+        rejectUnauthorized: false
+    }
+  },
 });
 
 module.exports = sequelize;
