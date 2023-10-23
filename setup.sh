@@ -42,3 +42,5 @@ echo "shell file successfully"
 sudo mv /tmp/project.service /etc/systemd/system/project.service
 sudo systemctl enable project.service
 sudo systemctl start project.service
+
+echo "systemd file started"
