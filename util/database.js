@@ -26,16 +26,15 @@ const sequelize = new Sequelize(process.env.DB_POSTGRESQL, process.env.DB_USER, 
 // const sequelize = new Sequelize(process.env.DB_POSTGRESQL, process.env.DB_USER, process.env.DB_PASSWORD, {
 //   dialect: 'postgres',
 //   host: process.env.DB_HOST,
-//   // dialectOptions: {
-//   //   ssl: {
-//   //       //require: process.env.DB_HOST == 'localhost'?false:true,
-//   //       require: false,
-//   //       rejectUnauthorized: false
-//   //   }
-//   // },
-
-
+//   dialectOptions: {
+//     ssl: {
+//         //require: process.env.DB_HOST == 'localhost'?false:true,
+//         require: false,
+//         rejectUnauthorized: false
+//     }
+//   },
 // });
+
 //Old stuff ---
 
 
