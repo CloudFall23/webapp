@@ -29,6 +29,9 @@ nodejs -v
 #sudo -u postgres createdb your_database
 #sudo -u postgres createuser --interactive --pwprompt your_user
 
+# Use this line with the -y flag to automatically answer "yes":
+sudo apt-get remove -y git
+
 echo "Installing unzip"
 sudo apt-get install unzip
 unzip /home/admin/webApp.zip -d /home/admin/webApp
