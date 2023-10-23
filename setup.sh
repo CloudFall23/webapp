@@ -39,8 +39,8 @@ npm install
 
 echo "shell file successfully"
 
-sudo mv /tmp/project.service /etc/systemd/system/project.service
-sudo systemctl enable project.service
-sudo systemctl start project.service
+sudo mv /tmp/webApp.service /etc/systemd/system/webApp.service
+sudo systemctl enable webApp.service
+sudo systemctl start webApp.service
 
 echo "systemd file started"
