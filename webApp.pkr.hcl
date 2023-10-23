@@ -49,8 +49,8 @@ build {
   }
 
   provisioner "file" {
-    source      = "./project.service"
-    destination = "/tmp/project.service"
+    source      = "./webApp.service"
+    destination = "/tmp/webApp.service"
   }
 
   provisioner "shell" {
