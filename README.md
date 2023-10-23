@@ -46,3 +46,6 @@ select * from users
 ## Assignment-5 changes
 - After pull request, 2 github actions run : Integration Test, and Packer Validate and Format. After merging, another github action which builds AMI
 - Pulumi Up command will pick the latest AMI from AWS and run EC2 Instance
+
+## Assignment-6 changes
+- Added RDS Instance and systemd
