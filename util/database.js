@@ -3,14 +3,14 @@ const Sequelize = require('sequelize');
 const dbvar = require('./dbvar');
 //console.log(process.env.DB_USER);
 
-const isAwsRDS = process.env.DB_HOST && process.env.DB_HOST.includes('localhost');
+const isAwsRDS = process.env.DB_HOST && process.env.DB_HOST.includes('.rds.amazonaws.com');
 
 const sequelizeConfig = {
   dialect: 'postgres',
   host: process.env.DB_HOST,
 };
 
-if (!isAwsRDS) {
+if (isAwsRDS) {
   sequelizeConfig.dialectOptions = {
     ssl: {
       require: true,
