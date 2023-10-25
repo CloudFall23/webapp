@@ -49,3 +49,10 @@ select * from users
 
 ## Assignment-6 changes
 - Added RDS Instance and systemd
+- sudo systemctl status webApp.service
+- sudo journalctl -u webApp.service
+- sudo systemctl restart webApp.service
+
+Get PID and Users
+- systemctl status systemd webApp.service
+- ps -p <PID> -o user
