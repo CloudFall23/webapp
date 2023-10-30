@@ -56,3 +56,5 @@ select * from users
 Get PID and Users
 - systemctl status systemd webApp.service
 - ps -p <PID> -o user
+
+## Assignment6 review changes
