@@ -3,10 +3,11 @@
 sudo apt install -y amazon-cloudwatch-agent
 
 # Download CloudWatch agent installer
-sudo curl https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm -O
+wget https://s3.amazonaws.com/amazoncloudwatch-agent/debian/amd64/latest/amazon-cloudwatch-agent.deb
 
 # Install CloudWatch agent
-sudo rpm -U ./amazon-cloudwatch-agent.rpm
+#sudo rpm -U ./amazon-cloudwatch-agent.rpm
+sudo dpkg -i -E ./amazon-cloudwatch-agent.deb
 
 # Start CloudWatch agent
 sudo systemctl daemon-reload
