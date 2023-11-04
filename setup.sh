@@ -38,6 +38,12 @@ sudo apt-get install unzip
 #cp in tmp
 sudo cp /tmp/webApp.zip /opt/webApp.zip
 sudo unzip /opt/webApp.zip -d /opt/webApp
+
+#sudo apt install -y amazon-cloudwatch-agent
+sudo wget https://s3.amazonaws.com/amazoncloudwatch-agent/debian/amd64/latest/amazon-cloudwatch-agent.deb
+sudo dpkg -i -E ./amazon-cloudwatch-agent.deb
+rm ./amazon-cloudwatch-agent.deb
+
 cd /opt/webApp
 echo "unzipped successfully"
 
@@ -48,6 +54,9 @@ echo "shell file successfully"
 # User adding group
 sudo groupadd csye6225
 sudo useradd -s /bin/false -g csye6225 -d /opt/csye6225 -m csye6225
+
+sudo chown -R csye6225:csye6225 /opt/webApp/
+sudo chmod -R 750  /opt/webApp/
 
 sudo cp /tmp/webApp.service /etc/systemd/system/webApp.service
 sudo systemctl enable webApp.service
