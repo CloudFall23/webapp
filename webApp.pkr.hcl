@@ -57,8 +57,4 @@ build {
     script = "./setup.sh"
   }
 
-  provisioner "shell" {
-    script = "./cloudwatch.sh"
-  }
-
 }
