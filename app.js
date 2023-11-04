@@ -3,7 +3,7 @@ const express = require('express');
 const sequelize = require('./util/database');
 const healthzRoutes = require('./routes/health');
 const assignmentRoutes = require('./routes/assignment');
-const logger = require('./util/logger');
+//const logger = require('./util/logger');
 
 const app = express();
 

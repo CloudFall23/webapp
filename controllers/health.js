@@ -1,4 +1,5 @@
 const sequelize = require('../util/database');
+const logger = require('../util/logger');
 
 exports.checkHealthz = async (req, res) => {
     res.setHeader('Cache-Control', 'no-cache');
@@ -13,6 +14,7 @@ exports.checkHealthz = async (req, res) => {
 
     await sequelize.authenticate()
     .then(() => {
+        logger.info("logging healthz");
         res.status(200).end();
     })
     .catch(err => {
