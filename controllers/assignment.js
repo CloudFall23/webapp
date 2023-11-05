@@ -4,9 +4,18 @@ const fs = require('fs');
 const User = require('../models/user');
 const Assignment = require('../models/assignment');
 const { getUserIdByEmail } = require('../controllers/user');
+const statsd = require('node-statsd');
+const client = new statsd({ host : 'localhost', port : 8125});
+const logger = require('../util/logger');
 
 //GET ALL Assignments
 exports.getAssignments = async (req, res, next) => {
+
+      //Metrics
+      client.increment('GETALL-Assignment');
+
+      //Logger
+      logger.info("getAll assignments api hit");
 
       // Validate no JSON body is passed
       if (Object.keys(req.body).length !== 0) {
@@ -61,6 +70,12 @@ exports.getAssignments = async (req, res, next) => {
   //CREATE Assignment
   exports.postAssignment = async(req, res, next) => {
     const { name, points, num_of_attemps, deadline } = req.body;
+
+    //Metrics
+    client.increment('CREATE-Assignment');
+
+    //Logger
+    logger.info("create assignment api hit");
 
     //Authorisation validation
     if (!req.get('Authorization')) {
@@ -130,6 +145,12 @@ exports.getAssignments = async (req, res, next) => {
 //GET specific assignment
 exports.getAssignment = async (req, res, next) => {
 
+    //Metrics
+    client.increment('GET-Assignment');
+
+    //Logger
+    logger.info("get assignment api hit");
+
     // Validate no JSON body is passed
     if (Object.keys(req.body).length !== 0) {
       return res.status(400).json({ message: 'Bad Request: JSON body should not be provided for GET requests.' });
@@ -187,7 +208,13 @@ exports.getAssignment = async (req, res, next) => {
 
     //DELETE Assignment
     exports.deleteAssignment = async(req, res, next) => {
-      
+    
+    //Metrics
+    client.increment('DELETE-Assignment');
+
+    //Logger
+    logger.info("delete assignment api hit");
+
           //Authorisation validation
     if (!req.get("Authorization")) {
       return res.status(401).json({ message: "Authentication required" });
@@ -245,6 +272,12 @@ exports.getAssignment = async (req, res, next) => {
     //UPDATE ASssignment
     exports.updateAssignment = async (req, res, next) => {
       
+      //Metrics
+      client.increment('UPDATE-Assignment');
+
+      //Logger
+      logger.info("update assignment api hit");
+
       //Authorisation validation
       if (!req.get("Authorization")) {
         return res.status(401).json({ message: "Authentication required." });
