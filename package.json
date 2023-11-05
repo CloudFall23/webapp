@@ -4,7 +4,7 @@
   "description": "Health check of DB",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --forceExit",
     "start": "node app.js"
   },
   "jest": {

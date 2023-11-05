@@ -1,13 +1,13 @@
 const sequelize = require('../util/database');
 const logger = require('../util/logger');
-const statsd = require('node-statsd');
-const client = new statsd({ host : 'localhost', port : 8125 });
+// const statsd = require('node-statsd');
+// const client = new statsd({ host : 'localhost', port : 8125 });
 
 exports.checkHealthz = async (req, res) => {
     res.setHeader('Cache-Control', 'no-cache');
 
     // Increment CloudWatch Metric
-    client.increment('healthz.hit');
+    // client.increment('healthz.hit');
 
     if (req.body && Object.values(req.body).length !== 0) {
         return res.status(400).end();
