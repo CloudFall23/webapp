@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 const statsd = require('node-statsd');
 const client = new statsd({ host : 'localhost', port : 8125});
+const Submission = require('../models/submission');
 
 exports.checkEmailPassword = (email, password) => {
     return new Promise(async (resolve, reject) => {
@@ -35,6 +36,22 @@ exports.getUserIdByEmail = (email) => {
             }
 
             resolve(user.id);
+        } catch (err) {
+            reject(err);
+        }
+    });
+};
+
+exports.getNumberOfSubmissions = (assignmentId) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const count = await Submission.count({
+                where: {
+                    assignment_id: assignmentId
+                }
+            });
+            
+            resolve(count);
         } catch (err) {
             reject(err);
         }

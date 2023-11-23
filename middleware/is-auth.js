@@ -1,6 +1,7 @@
 const { checkEmailPassword } = require('../controllers/user');
 
 exports.checkAssignmentRouter = async (req, res, next) => {
+    console.log("inside auth file");
     if (!req.get('Authorization')) {
         return res.status(401).json({ message: 'Authorization header missing' });
     }
