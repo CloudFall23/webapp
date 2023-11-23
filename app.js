@@ -14,6 +14,7 @@ app.use('/v1',assignmentRoutes);
 
 // Catch-all handler for unsupported methods
 app.use((req, res) => {
+    console.log("inside 405");
     res.status(405).end();
 });
 
