@@ -1,5 +1,5 @@
 const AWS = require('aws-sdk');
-AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: 'demos' });
+//AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: 'demos' });
 const sns = new AWS.SNS({
   region: process.env.AWS_REGION || 'us-east-1',
 });
