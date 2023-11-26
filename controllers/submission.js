@@ -1,4 +1,6 @@
 const AWS = require('aws-sdk');
+require('dotenv').config();
+const dbvar = require('../util/dbvar');
 //AWS.config.credentials = new AWS.SharedIniFileCredentials({ profile: 'demos' });
 const sns = new AWS.SNS({
   region: process.env.AWS_REGION || 'us-east-1',
@@ -60,7 +62,7 @@ exports.postSubmission = async (req, res, next) => {
   };
 
   sns.publish({
-    TopicArn: 'arn:aws:sns:us-east-1:075160867462:csye6225-demo', // Replace with your SNS topic ARN
+    TopicArn: process.env.TOPICARN, // Replace with your SNS topic ARN
     Message: JSON.stringify(message)
   }, (err, data) => {
     if (err) {
