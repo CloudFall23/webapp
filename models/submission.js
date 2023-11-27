@@ -61,6 +61,7 @@ Submission.associate = (models) => {
   models.Submission.belongsTo(models.Assignment, {
     foreignKey: 'assignment_id',
     as: 'assignment',
+    onDelete: 'CASCADE',
   });
 };
 
