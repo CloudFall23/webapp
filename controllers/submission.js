@@ -56,8 +56,8 @@ exports.postSubmission = async (req, res, next) => {
   // Submit URL to SNS topic
   const message = {
     userId: user.id,
-    email: user.email,
-    assignmentId,
+    emailId: email,
+    assignmentId: assignmentId,
     submissionUrl: submission_url
   };
 
