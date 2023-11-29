@@ -7,11 +7,17 @@ const Submission = sequelize.define(
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
+      readOnly: true,
       primaryKey: true,
     },
     assignment_id: {
       type: DataTypes.UUID,
       field: "assignment_id",
+      allowNull: false,
+    },
+    user_id: {
+      type: DataTypes.UUID,
+      field: "user_id",
       allowNull: false,
     },
     submission_url: {

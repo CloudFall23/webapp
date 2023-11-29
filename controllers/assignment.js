@@ -1,9 +1,10 @@
 
 const fs = require('fs');
-
+const Submission = require('../models/submission');
 const User = require('../models/user');
 const Assignment = require('../models/assignment');
 const { getUserIdByEmail } = require('../controllers/user');
+const { getNumberOfSubmissions } = require('../controllers/user');
 const statsd = require('node-statsd');
 const client = new statsd({ host : 'localhost', port : 8125});
 const logger = require('../util/logger');
@@ -258,11 +259,23 @@ exports.getAssignment = async (req, res, next) => {
             });
         }
 
+          // Check for existing submissions
+          const submissionCount = await  Submission.count({
+            where: {
+              assignment_id: assignmentId
+            }
+        });
+          console.log("**********"+submissionCount);
+          if (submissionCount > 0) {
+            return res.status(400).json({ message: "Cannot delete assignment as there are existing submissions." });
+          }
+
         await assignment.destroy();
         res.status(204).json({ message: "No content" });
       } catch (err) {
         if (!err.statusCode) {
-          return res.status(400).json({ message: 'Bad Request' });
+          console.log(err);
+          return res.status(400).json({ message: err });
         }
         next(err);
       }
