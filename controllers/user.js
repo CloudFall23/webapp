@@ -42,17 +42,22 @@ exports.getUserIdByEmail = (email) => {
     });
 };
 
-exports.getNumberOfSubmissions = (assignmentId) => {
+exports.getNumberOfSubmissions = (assignmentId, userId) => {
     return new Promise(async (resolve, reject) => {
         try {
+            console.log("************");
+            console.log("Assignment ID:", assignmentId);
+            console.log("User ID:", userId);
             const count = await Submission.count({
                 where: {
-                    assignment_id: assignmentId
+                    assignment_id: assignmentId,
+                    user_id: userId
                 }
             });
             
             resolve(count);
         } catch (err) {
+            console.error(err);
             reject(err);
         }
     });
