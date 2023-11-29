@@ -51,19 +51,21 @@ exports.postSubmission = async (req, res, next) => {
   console.log("inside controller - 15");
   const currentDateTime = new Date();
   if (currentDateTime > new Date(assignment.deadline)) {
-    return res.status(403).json({ message: 'Submission rejected: Deadline has passed.' });
+    return res.status(400).json({ message: 'Submission rejected: Deadline has passed.' });
   }
-
-  const userIdsid = user;
-
-  console.log(userIdsid);
 
   // Check retries limit
-  const numSubmissions = await getNumberOfSubmissions(assignmentId, user); // getNumberOfSubmissions to be implemented
+  const numSubmissions = await getNumberOfSubmissions(assignmentId, user); // getNumberOfSubmissions
   console.log(numSubmissions);
   if (numSubmissions >= assignment.num_of_attemps) {
-    return res.status(403).json({ message: 'Submission limit exceeded.' });
+    return res.status(400).json({ message: 'Submission limit exceeded.' });
   }
+
+  const urlRegex = /^(http|https):\/\/.*\.zip$/;
+  if (!urlRegex.test(submission_url)) {
+    return res.status(400).json({ message: 'Invalid submission URL. URL must start with http/https and end with .zip' });
+  }
+
 
   console.log("before creating submission");
   const newSubmission = await Submission.create({
