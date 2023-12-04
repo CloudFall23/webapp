@@ -64,3 +64,6 @@ Get PID and Users
 ## Cloudwatch
 
 ## Assignment8 changes
+
+## Assignment 10 changes
+command to import the certificate : aws acm import-certificate --certificate file://Certificate.pem --certificate-chain file://CertificateChain.pem --private-key file://PrivateKey.pem --profile demo
