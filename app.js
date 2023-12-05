@@ -10,7 +10,7 @@ const app = express();
 app.use(express.json());
 
 app.use(healthzRoutes);
-app.use('/demo',assignmentRoutes);
+app.use('/v3',assignmentRoutes);
 
 // Catch-all handler for unsupported methods
 app.use((req, res) => {
