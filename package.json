@@ -10,7 +10,7 @@
   "jest": {
     "testEnvironment": "node"
   },
-  "author": "",
+  "author": "Siddharth",
   "license": "ISC",
   "dependencies": {
     "app-root-path": "^3.1.0",
